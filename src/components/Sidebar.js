@@ -6,7 +6,6 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { Home, People } from "@mui/icons-material";
-
 import Settings from "@mui/icons-material/Settings";
 const Sidebar = ({ onSelectComponent }) => {
   return (

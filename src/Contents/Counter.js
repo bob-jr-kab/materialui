@@ -31,10 +31,10 @@ const Counter = () => {
     <Box
       bgcolor="#E9EFEC"
       color="red"
-      flex={8}
       padding={2}
       align="center"
       height="100vh"
+      sx={{ width: "100%" }}
     >
       <Card sx={{ maxWidth: { xs: "100%", sm: "50%" } }}>
         <CardHeader

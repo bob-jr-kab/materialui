@@ -1,12 +1,11 @@
 import { React, useState } from "react";
 import Stack from "@mui/material/Stack";
-import Sidebar from "./Sidebar.js";
-import Navbar from "./Navbar.js";
+import Sidebar from "../components/Sidebar.js";
+import Navbar from "../components/Navbar.js";
 import { Box } from "@mui/material";
-import Content from "./Content.js";
-import MovieList from "../pages/MovieList.js";
-import Counter from "../pages/Counter.js";
-import ToDoList from "../pages/ToDoList.js";
+import MovieList from "../Contents/MovieList.js";
+import Counter from "../Contents/Counter.js";
+import ToDoList from "../Contents/ToDoList.js";
 
 const Layout = () => {
   const [selectedComponent, setSelectedComponent] = useState("Movies");
@@ -34,9 +33,8 @@ const Layout = () => {
       <Navbar />
       <Stack direction="row" spacing={20}>
         <Sidebar onSelectComponent={onSelectComponent} />
-        <Content />
+        {renderComponent()}
       </Stack>
-      {renderComponent()}
     </Box>
   );
 };

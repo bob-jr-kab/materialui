@@ -24,7 +24,7 @@ const MovieList = () => {
   }, []);
 
   return (
-    <Stack spacing={2}>
+    <Stack>
       <Box
         // flex={8}
         justifyContent="space-around"
@@ -47,7 +47,6 @@ const MovieList = () => {
         justifyContent="center"
         alignItems="center"
         flexWrap="wrap"
-        gap={2}
         padding={2}
       >
         {movies.map((movie) => (

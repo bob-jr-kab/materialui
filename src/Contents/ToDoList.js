@@ -53,9 +53,10 @@ const ToDoList = () => {
     <Box
       bgcolor="#E9EFEC"
       color="red"
-      flex={8}
+      // flex={8}
       padding={2}
       align="center"
+      sx={{ width: "100%" }}
       height="100vh"
     >
       <Card sx={{ maxWidth: { xs: "100%", sm: "50%", marginTop: "50px" } }}>
@@ -96,26 +97,7 @@ const ToDoList = () => {
                     alignItems="right"
                     justifyContent="center"
                     sx={{ marginLeft: 10 }}
-                  >
-                    <DeleteButton
-                      onClick={() => deleteTask(index)}
-                      variant="contained"
-                    >
-                      Delete
-                    </DeleteButton>
-                    <StyledButton2
-                      onClick={() => moveTaskUp(index)}
-                      variant="contained"
-                    >
-                      UP
-                    </StyledButton2>
-                    <StyledButton2
-                      onClick={() => moveTaskDown(index)}
-                      variant="contained"
-                    >
-                      Down
-                    </StyledButton2>
-                  </Stack>
+                  ></Stack>
                 </ListItem>
               ))}
             </List>
