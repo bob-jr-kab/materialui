@@ -10,7 +10,6 @@ import {
   Menu,
 } from "@mui/material";
 import React, { useState } from "react";
-import HubIcon from "@mui/icons-material/Hub";
 import { Hub } from "@mui/icons-material";
 const StyledToolbar = styled(Toolbar)(() => ({
   display: "flex",

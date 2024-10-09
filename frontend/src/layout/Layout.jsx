@@ -1,11 +1,11 @@
-import { React, useState } from "react";
+import React, { useState } from "react";
 import Stack from "@mui/material/Stack";
-import Sidebar from "../components/Sidebar.js";
-import Navbar from "../components/Navbar.js";
+import Sidebar from "../components/Sidebar.jsx";
+import Navbar from "../components/Navbar.jsx";
 import { Box } from "@mui/material";
-import MovieList from "../Contents/MovieList.js";
-import Counter from "../Contents/Counter.js";
-import ToDoList from "../Contents/ToDoList.js";
+import MovieList from "../Contents/MovieList.jsx";
+import Counter from "../Contents/Counter.jsx";
+import ToDoList from "../Contents/ToDoList.jsx";
 
 const Layout = () => {
   const [selectedComponent, setSelectedComponent] = useState("Movies");

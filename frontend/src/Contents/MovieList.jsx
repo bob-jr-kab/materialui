@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchMovies } from "../server/server";
+import { fetchMovies } from "../api/movieApi.jsx";
 import {
   Card,
   CardContent,

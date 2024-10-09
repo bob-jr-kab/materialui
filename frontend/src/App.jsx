@@ -1,4 +1,5 @@
-import Layout from "./layout/Layout.js";
+import Layout from "./layout/Layout";
+import React from "react";
 function App() {
   return (
     <>
