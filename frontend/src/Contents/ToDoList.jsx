@@ -79,7 +79,7 @@ const ToDoList = () => {
         />
         <Divider />
         <CardContent>
-          <h3> My To Do List</h3>
+          <h3> To Do</h3>
           <Box
             display="flex"
             alignItems="center"
@@ -110,7 +110,7 @@ const ToDoList = () => {
               {tasks.map((task, index) => (
                 <ListItem
                   key={task._id}
-                  sx={{ display: "flex", alignItems: "center" }}
+                  sx={{ display: "flex", alignItems: "center", width: "400px" }}
                 >
                   <Typography sx={{ flexGrow: 1 }}>
                     {index + 1}. {task.task}

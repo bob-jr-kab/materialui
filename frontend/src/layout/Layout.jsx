@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 import Sidebar from "../components/Sidebar.jsx";
@@ -9,10 +9,7 @@ import Counter from "../Contents/Counter.jsx";
 import ToDoList from "../Contents/ToDoList.jsx";
 
 const Layout = () => {
-  // Create a theme object for ThemeProvider
   const theme = createTheme();
-
-  // Check if screen size is small
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
@@ -21,27 +18,32 @@ const Layout = () => {
         <Box>
           <Navbar />
           <Stack
-            direction={{ xs: "column", sm: "row" }} // Stack column for small screens, row for larger
-            spacing={isSmallScreen ? 0 : 20} // No spacing on small screens
+            direction={{ xs: "column", sm: "row" }}
+            spacing={isSmallScreen ? 0 : 21}
             sx={{ width: "100%" }}
           >
-            <Box
-              sx={{
-                width: isSmallScreen ? "100%" : "auto", // Full width on small screens
-              }}
-            >
+            <Box>
               <Sidebar />
             </Box>
-            <Box
-              sx={{
-                width: isSmallScreen ? "100%" : "100%", // Full width for content on small screens
-              }}
-            >
+            <Box sx={{ width: "100%" }}>
               <Routes>
                 <Route path="/" element={<MovieList />} />
-                <Route path="/counter" element={<Counter />} />
-                <Route path="/todo" element={<ToDoList />} />
-                {/* Add more routes as needed */}
+                <Route
+                  path="/counter"
+                  element={
+                    <Box sx={{ width: isSmallScreen ? "92%" : "97%" }}>
+                      <Counter />
+                    </Box>
+                  }
+                />
+                <Route
+                  path="/todo"
+                  element={
+                    <Box sx={{ width: isSmallScreen ? "92%" : "97%" }}>
+                      <ToDoList />
+                    </Box>
+                  }
+                />
               </Routes>
             </Box>
           </Stack>
