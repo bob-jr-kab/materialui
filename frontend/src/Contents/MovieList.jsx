@@ -70,29 +70,35 @@ const MovieList = () => {
         display="flex"
         justifyContent="space-between"
         alignItems="center"
-        gap={60}
         mt={2}
-        px={10} // Adjust margin left and right
+        px={{ xs: 2, sm: 5, md: 10 }} // Adjust margin left and right for responsive design
+        sx={{
+          flexDirection: { xs: "column", sm: "row" }, // Stack vertically on small screens
+          alignItems: { xs: "flex-start", sm: "center" }, // Align left on small screens
+        }}
       >
         {/* Title aligned to the left */}
-        <Typography variant="h5">Popular Movies</Typography>
+        <Typography variant="h5" sx={{ mb: { xs: 1, sm: 0 } }}>
+          Popular Movies
+        </Typography>
 
         {/* Search and button aligned to the right */}
         <Box
           display="flex"
           alignItems="center"
-          sx={{ minWidth: "300px", gap: "15px" }}
+          width={{ xs: "100%", sm: "auto" }} // Full width on small screens
+          sx={{ gap: "10px", marginTop: { xs: 1, sm: 0 } }} // Remove gap for smaller screens
         >
           <TextField
             label="Search"
+            fullWidth
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            // sx={{ marginLeft: "20", flexGrow: "1" }}
           />
           <Button
             onClick={() => setSearchTerm(searchTerm)}
             variant="contained"
-            sx={{ minWidth: 100, padding: "8px 16px", bgcolor: "#6A9C89" }} // Adjust button size
+            sx={{ minWidth: 100, padding: "8px 16px", bgcolor: "#6A9C89" }}
           >
             Search
           </Button>
@@ -103,16 +109,16 @@ const MovieList = () => {
       {filteredMovies.length > 0 ? (
         <Box display="flex" justifyContent="center" padding={2}>
           <Box
-            marginLeft={7}
-            display="grid"
-            gridTemplateColumns="repeat(5, 1fr)"
+            display="flex"
+            flexWrap="wrap"
+            justifyContent="center"
             gap={2}
             maxWidth="1200px"
           >
             {filteredMovies.map((movie) => (
               <Card
                 key={movie.id}
-                sx={{ width: 200, height: 300 }}
+                sx={{ width: { xs: "45%", md: 200 }, height: 300 }} // Adjust width for small screens
                 onClick={() => handleMovieClick(movie.id)}
               >
                 <CardMedia
@@ -155,7 +161,7 @@ const MovieList = () => {
                 Rating: {selectedMovie.vote_average}
               </Typography>
 
-              {trailerKey && (
+              {trailerKey ? (
                 <Box sx={{ marginTop: 2 }}>
                   <iframe
                     width="80%"
@@ -167,8 +173,7 @@ const MovieList = () => {
                     allowFullScreen
                   ></iframe>
                 </Box>
-              )}
-              {!trailerKey && (
+              ) : (
                 <Typography variant="body2" color="error">
                   No trailer available for this movie.
                 </Typography>

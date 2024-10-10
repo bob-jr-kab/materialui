@@ -18,7 +18,6 @@ const StyledToolbar = styled(Toolbar)(() => ({
   padding: "0 16px",
   position: "sticky",
   backgroundColor: "#16423C",
-  gap: "50",
 }));
 
 const Navbar = () => {
