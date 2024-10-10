@@ -10,7 +10,7 @@ import Settings from "@mui/icons-material/Settings";
 const Sidebar = ({ onSelectComponent }) => {
   return (
     <Box
-      bgcolor="#6A9C89"
+      bgcolor="#16423C"
       flex={2}
       color="#E9EFEC"
       position="fixed"

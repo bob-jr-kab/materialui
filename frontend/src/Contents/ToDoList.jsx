@@ -13,14 +13,11 @@ import {
   List,
   ListItem,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios"; // Import Axios
 
 const StyledButton = styled(Button)({
   backgroundColor: "#6A9C89",
-  textTransform: "none",
-});
-const StyledButton2 = styled(Button)({
-  backgroundColor: "#384B70",
   textTransform: "none",
 });
 
@@ -30,30 +27,41 @@ const DeleteButton = styled(Button)({
 });
 
 const ToDoList = () => {
-  const [tasks, setTask] = useState(["Eat fufu", "sleep", "Go to Dima"]);
+  const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState("");
 
-  function handleInputChange(event) {
-    setNewTask(event.target.value);
-  }
+  useEffect(() => {
+    fetchTasks(); // Fetch tasks on component mount
+  }, []);
 
-  function addTask() {
+  const fetchTasks = async () => {
+    const response = await axios.get("http://localhost:5000/tasks");
+    setTasks(response.data);
+  };
+
+  const handleInputChange = (event) => {
+    setNewTask(event.target.value);
+  };
+
+  const addTask = async () => {
     if (newTask.trim() !== "") {
-      setTask((t) => [...t, newTask]);
+      const response = await axios.post("http://localhost:5000/tasks", {
+        task: newTask,
+      });
+      setTasks((prevTasks) => [...prevTasks, response.data]);
       setNewTask("");
     }
-  }
-  function deleteTask(index) {
-    setTask(tasks.filter((_, i) => i !== index));
-  }
-  function moveTaskUp() {}
-  function moveTaskDown() {}
+  };
+
+  const deleteTask = async (id) => {
+    await axios.delete(`http://localhost:5000/tasks/${id}`);
+    setTasks(tasks.filter((task) => task._id !== id));
+  };
 
   return (
     <Box
       bgcolor="#E9EFEC"
       color="red"
-      // flex={8}
       padding={2}
       align="center"
       sx={{ width: "100%" }}
@@ -66,20 +74,19 @@ const ToDoList = () => {
               T
             </Avatar>
           }
-          title="To DO List Program"
+          title="To Do List Program"
           subheader="September 16, 2024"
-        />{" "}
+        />
         <Divider />
         <CardContent>
           <h3> My To Do List</h3>
           <Box alignItems="center" justifyContent="center">
             <TextField
               onChange={handleInputChange}
-              id="text-feild"
+              id="text-field"
               label="Enter a task..."
-              multiline
-              maxRows={4}
               variant="outlined"
+              value={newTask}
             />
             <StyledButton onClick={addTask} variant="contained">
               ADD
@@ -88,18 +95,25 @@ const ToDoList = () => {
 
           <Box>
             <List>
-              {tasks.map((task, index) => (
-                <ListItem key={index}>
-                  {index + 1}.{task}
-                  <Stack
-                    direction="row"
-                    spacing={1}
-                    alignItems="right"
-                    justifyContent="center"
-                    sx={{ marginLeft: 10 }}
-                  ></Stack>
-                </ListItem>
-              ))}
+              {tasks.map(
+                (
+                  task,
+                  index // Include index in the map function
+                ) => (
+                  <ListItem
+                    key={task._id}
+                    sx={{ display: "flex", alignItems: "center" }}
+                  >
+                    <Typography sx={{ flexGrow: 1 }}>
+                      {index + 1}. {task.task} {/* Display index with task */}
+                    </Typography>
+
+                    <DeleteButton onClick={() => deleteTask(task._id)}>
+                      X
+                    </DeleteButton>
+                  </ListItem>
+                )
+              )}
             </List>
           </Box>
         </CardContent>
