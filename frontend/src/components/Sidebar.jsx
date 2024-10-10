@@ -1,13 +1,14 @@
-import { React, useState } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import { Home, People } from "@mui/icons-material";
-import Settings from "@mui/icons-material/Settings";
-const Sidebar = ({ onSelectComponent }) => {
+import { Home, People, Settings } from "@mui/icons-material";
+import { Link } from "react-router-dom";
+
+const Sidebar = () => {
   return (
     <Box
       bgcolor="#16423C"
@@ -20,7 +21,7 @@ const Sidebar = ({ onSelectComponent }) => {
     >
       <List>
         <ListItem disablePadding>
-          <ListItemButton onClick={() => onSelectComponent("Movies")}>
+          <ListItemButton component={Link} to="/">
             <ListItemIcon>
               <Home />
             </ListItemIcon>
@@ -29,7 +30,7 @@ const Sidebar = ({ onSelectComponent }) => {
         </ListItem>
 
         <ListItem disablePadding>
-          <ListItemButton onClick={() => onSelectComponent("Counter")}>
+          <ListItemButton component={Link} to="/counter">
             <ListItemIcon>
               <People />
             </ListItemIcon>
@@ -38,11 +39,11 @@ const Sidebar = ({ onSelectComponent }) => {
         </ListItem>
 
         <ListItem disablePadding>
-          <ListItemButton onClick={() => onSelectComponent("Settings")}>
+          <ListItemButton component={Link} to="/todo">
             <ListItemIcon>
               <Settings />
             </ListItemIcon>
-            <ListItemText primary="Settiings" />
+            <ListItemText primary="To Do List" />
           </ListItemButton>
         </ListItem>
       </List>

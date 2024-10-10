@@ -3,7 +3,6 @@ import {
   Card,
   CardContent,
   CardHeader,
-  Stack,
   styled,
   Button,
   Typography,
@@ -22,7 +21,8 @@ const StyledButton = styled(Button)({
 });
 
 const DeleteButton = styled(Button)({
-  backgroundColor: "#B8001F",
+  backgroundColor: "transparent",
+  color: "red",
   textTransform: "none",
 });
 
@@ -80,13 +80,25 @@ const ToDoList = () => {
         <Divider />
         <CardContent>
           <h3> My To Do List</h3>
-          <Box alignItems="center" justifyContent="center">
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            gap={2}
+          >
             <TextField
               onChange={handleInputChange}
               id="text-field"
               label="Enter a task..."
-              variant="outlined"
               value={newTask}
+              sx={{
+                "& .MuiInputBase-root": {
+                  height: "40px", // Adjust the height here
+                },
+                "& .MuiInputLabel-root": {
+                  lineHeight: "20px", // Center label vertically
+                },
+              }}
             />
             <StyledButton onClick={addTask} variant="contained">
               ADD
@@ -95,25 +107,20 @@ const ToDoList = () => {
 
           <Box>
             <List>
-              {tasks.map(
-                (
-                  task,
-                  index // Include index in the map function
-                ) => (
-                  <ListItem
-                    key={task._id}
-                    sx={{ display: "flex", alignItems: "center" }}
-                  >
-                    <Typography sx={{ flexGrow: 1 }}>
-                      {index + 1}. {task.task} {/* Display index with task */}
-                    </Typography>
+              {tasks.map((task, index) => (
+                <ListItem
+                  key={task._id}
+                  sx={{ display: "flex", alignItems: "center" }}
+                >
+                  <Typography sx={{ flexGrow: 1 }}>
+                    {index + 1}. {task.task}
+                  </Typography>
 
-                    <DeleteButton onClick={() => deleteTask(task._id)}>
-                      X
-                    </DeleteButton>
-                  </ListItem>
-                )
-              )}
+                  <DeleteButton onClick={() => deleteTask(task._id)}>
+                    X
+                  </DeleteButton>
+                </ListItem>
+              ))}
             </List>
           </Box>
         </CardContent>

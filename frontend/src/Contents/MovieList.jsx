@@ -94,6 +94,14 @@ const MovieList = () => {
             fullWidth
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
+            sx={{
+              "& .MuiInputBase-root": {
+                height: "40px", // Adjust the height here
+              },
+              "& .MuiInputLabel-root": {
+                lineHeight: "20px", // Center label vertically
+              },
+            }}
           />
           <Button
             onClick={() => setSearchTerm(searchTerm)}
