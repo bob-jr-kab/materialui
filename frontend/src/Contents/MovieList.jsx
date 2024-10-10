@@ -70,17 +70,19 @@ const MovieList = () => {
         display="flex"
         justifyContent="space-between"
         alignItems="center"
-        gap={70}
+        gap={60}
         mt={2}
-        px={7} // Adjust margin left and right
+        px={10} // Adjust margin left and right
       >
         {/* Title aligned to the left */}
         <Typography variant="h5">Popular Movies</Typography>
 
         {/* Search and button aligned to the right */}
-        <Box display="flex" alignItems="center" sx={{ minWidth: "300px" }}>
-          {" "}
-          {/* Prevent shrink */}
+        <Box
+          display="flex"
+          alignItems="center"
+          sx={{ minWidth: "300px", gap: "15px" }}
+        >
           <TextField
             label="Search"
             value={searchTerm}
@@ -90,7 +92,7 @@ const MovieList = () => {
           <Button
             onClick={() => setSearchTerm(searchTerm)}
             variant="contained"
-            sx={{ minWidth: 100, padding: "8px 16px" }} // Adjust button size
+            sx={{ minWidth: 100, padding: "8px 16px", bgcolor: "#6A9C89" }} // Adjust button size
           >
             Search
           </Button>
