@@ -7,7 +7,7 @@ import { Box, useMediaQuery, createTheme, ThemeProvider } from "@mui/material";
 import MovieList from "../Contents/MovieList.jsx";
 import Counter from "../Contents/Counter.jsx";
 import ToDoList from "../Contents/ToDoList.jsx";
-
+import Calendar from "../Contents/Calendar.jsx";
 const Layout = () => {
   const theme = createTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -28,6 +28,7 @@ const Layout = () => {
             <Box sx={{ width: "100%" }}>
               <Routes>
                 <Route path="/" element={<MovieList />} />
+                <Route path="/calendar" element={<Calendar />} />
                 <Route
                   path="/counter"
                   element={

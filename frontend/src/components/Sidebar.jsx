@@ -46,6 +46,15 @@ const Sidebar = () => {
             <ListItemText primary="To Do List" />
           </ListItemButton>
         </ListItem>
+
+        <ListItem disablePadding>
+          <ListItemButton component={Link} to="/calendar">
+            <ListItemIcon>
+              <Settings />
+            </ListItemIcon>
+            <ListItemText primary="Calendar" />
+          </ListItemButton>
+        </ListItem>
       </List>
     </Box>
   );
