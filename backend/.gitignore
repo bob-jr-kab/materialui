@@ -28,7 +28,4 @@ yarn-error.log*
 .vite/deps/
 
 
-/frontend/node_modules/
-
 .env
-.vercel

@@ -35,7 +35,9 @@ const ToDoList = () => {
   }, []);
 
   const fetchTasks = async () => {
-    const response = await axios.get("http://localhost:5000/tasks");
+    const response = await axios.get(
+      "http://multiappserver-git-master-bob-jr-kabs-projects.vercel.app/api/tasks"
+    );
     setTasks(response.data);
   };
 
@@ -45,16 +47,21 @@ const ToDoList = () => {
 
   const addTask = async () => {
     if (newTask.trim() !== "") {
-      const response = await axios.post("http://localhost:5000/tasks", {
-        task: newTask,
-      });
+      const response = await axios.post(
+        "http://multiappserver-git-master-bob-jr-kabs-projects.vercel.app/api/tasks",
+        {
+          task: newTask,
+        }
+      );
       setTasks((prevTasks) => [...prevTasks, response.data]);
       setNewTask("");
     }
   };
 
   const deleteTask = async (id) => {
-    await axios.delete(`http://localhost:5000/tasks/${id}`);
+    await axios.delete(
+      `http://multiappserver-git-master-bob-jr-kabs-projects.vercel.app/api/tasks/${id}`
+    );
     setTasks(tasks.filter((task) => task._id !== id));
   };
 
