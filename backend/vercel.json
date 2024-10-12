@@ -1,7 +1,7 @@
 {
   "functions": {
     "api/apiHandler.js": {
-      "runtime": "nodejs21.0"
+      "runtime": "v21.0.0"
     }
   },
   "routes": [
