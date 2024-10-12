@@ -11,19 +11,24 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 // CORS configuration
-const corsOptions = {
-  origin: [
-    "https://multiappclient-h0a3rwhh7-bob-jr-kabs-projects.vercel.app",
-    "http://localhost:5173",
-  ],
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true,
-  optionsSuccessStatus: 200,
-};
+const allowedOrigins = [
+  "https://multiappclient.vercel.app",
+  "http://localhost:3000", // for development
+];
 
-// Use CORS middleware.....
-app.use(cors(corsOptions));
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: "GET,POST,DELETE",
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 app.use(bodyParser.json());
