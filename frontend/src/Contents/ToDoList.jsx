@@ -36,8 +36,18 @@ const ToDoList = () => {
   }, []);
 
   const fetchTasks = async () => {
-    const response = await axios.get("${baseUrl}/tasks");
-    setTasks(response.data);
+    try {
+      const response = await axios.get(`${baseUrl}/tasks`);
+      if (Array.isArray(response.data)) {
+        setTasks(response.data);
+      } else {
+        console.error("Received data is not an array:", response.data);
+        setTasks([]);
+      }
+    } catch (error) {
+      console.error("Error fetching tasks:", error);
+      setTasks([]);
+    }
   };
 
   const handleInputChange = (event) => {
@@ -46,17 +56,25 @@ const ToDoList = () => {
 
   const addTask = async () => {
     if (newTask.trim() !== "") {
-      const response = await axios.post("${baseUrl}/tasks", {
-        task: newTask,
-      });
-      setTasks((prevTasks) => [...prevTasks, response.data]);
-      setNewTask("");
+      try {
+        const response = await axios.post(`${baseUrl}/tasks`, {
+          task: newTask,
+        });
+        setTasks((prevTasks) => [...prevTasks, response.data]);
+        setNewTask("");
+      } catch (error) {
+        console.error("Error adding task:", error);
+      }
     }
   };
 
   const deleteTask = async (id) => {
-    await axios.delete(`${baseUrl}/tasks/${id}`);
-    setTasks(tasks.filter((task) => task._id !== id));
+    try {
+      await axios.delete(`${baseUrl}/tasks/${id}`);
+      setTasks((prevTasks) => prevTasks.filter((task) => task._id !== id));
+    } catch (error) {
+      console.error("Error deleting task:", error);
+    }
   };
 
   return (
@@ -108,20 +126,29 @@ const ToDoList = () => {
 
           <Box>
             <List>
-              {tasks.map((task, index) => (
-                <ListItem
-                  key={task._id}
-                  sx={{ display: "flex", alignItems: "center", width: "400px" }}
-                >
-                  <Typography sx={{ flexGrow: 1 }}>
-                    {index + 1}. {task.task}
-                  </Typography>
-
-                  <DeleteButton onClick={() => deleteTask(task._id)}>
-                    X
-                  </DeleteButton>
+              {Array.isArray(tasks) && tasks.length > 0 ? (
+                tasks.map((task, index) => (
+                  <ListItem
+                    key={task._id}
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      width: "400px",
+                    }}
+                  >
+                    <Typography sx={{ flexGrow: 1 }}>
+                      {index + 1}. {task.task}
+                    </Typography>
+                    <DeleteButton onClick={() => deleteTask(task._id)}>
+                      X
+                    </DeleteButton>
+                  </ListItem>
+                ))
+              ) : (
+                <ListItem>
+                  <Typography>No tasks available</Typography>
                 </ListItem>
-              ))}
+              )}
             </List>
           </Box>
         </CardContent>
