@@ -1,9 +1,10 @@
+// api/apiHandler.js
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
-import { connectDB } from "./config/db.js";
+import { connectDB } from "../config/db.js";
 
 dotenv.config();
 
@@ -27,21 +28,23 @@ const taskSchema = new mongoose.Schema({
 const Task = mongoose.model("Task", taskSchema);
 
 // Routes
-app.post("/tasks", async (req, res) => {
+app.post("/", async (req, res) => {
   const newTask = new Task({ task: req.body.task });
   await newTask.save();
   res.json(newTask);
 });
 
-app.get("/tasks", async (req, res) => {
+app.get("/", async (req, res) => {
   const tasks = await Task.find();
   res.json(tasks);
 });
 
-app.delete("/tasks/:id", async (req, res) => {
+app.delete("/:id", async (req, res) => {
   await Task.findByIdAndDelete(req.params.id);
   res.sendStatus(204);
 });
 
-// Vercel will handle the server listening
-console.log("Server is ready to receive requests on Vercel.");
+// Export the serverless function
+export default async (req, res) => {
+  await app(req, res); // Forward the request to the express app
+};
