@@ -27,7 +27,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Create a new task
+// Create a new task....
 router.post("/", async (req, res) => {
   const task = new Task({
     task: req.body.task,
@@ -41,7 +41,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-// Delete a task
+// Delete a task from ...
 router.delete("/:id", async (req, res) => {
   try {
     await Task.findByIdAndDelete(req.params.id);
