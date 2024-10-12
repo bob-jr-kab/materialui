@@ -10,14 +10,21 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 5000;
 
-// Middleware
-app.use(
-  cors({
-    origin:
-      "https://multiappclient-git-master-bob-jr-kabs-projects.vercel.app/",
-    optionsSuccessStatus: 200,
-  })
-);
+// CORS configuration
+const corsOptions = {
+  origin: [
+    "https://multiappclient-h0a3rwhh7-bob-jr-kabs-projects.vercel.app",
+    "http://localhost:5173",
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
+  optionsSuccessStatus: 200,
+};
+
+// Use CORS middleware
+app.use(cors(corsOptions));
+
 app.use(express.json());
 app.use(bodyParser.json());
 // Routes

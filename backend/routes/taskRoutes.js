@@ -1,7 +1,10 @@
 import express from "express";
 import Task from "../models/Task.js";
+import cors from "cors";
 
 const router = express.Router();
+
+router.use(cors(corsOptions));
 
 // Get all tasks
 router.get("/", async (req, res) => {
