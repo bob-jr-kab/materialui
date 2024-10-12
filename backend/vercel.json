@@ -1,8 +1,13 @@
 {
+  "functions": {
+    "api/apiHandler.js": {
+      "runtime": "nodejs"
+    }
+  },
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/api/index.js"
+      "dest": "/api/apiHandler.js"
     }
   ]
 }
