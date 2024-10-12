@@ -5,10 +5,7 @@ import cors from "cors";
 const router = express.Router();
 
 const corsOptions = {
-  origin: [
-    "https://multiappclient-h0a3rwhh7-bob-jr-kabs-projects.vercel.app",
-    "http://localhost:5173",
-  ],
+  origin: ["https://multiappclient.vercel.app/", "http://localhost:3000"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,

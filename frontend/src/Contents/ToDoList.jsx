@@ -37,7 +37,7 @@ const ToDoList = () => {
   const fetchTasks = async () => {
     try {
       const response = await axios.get(
-        "https://servermulti-700ywcyu5-bob-jr-kabs-projects.vercel.app/api/tasks"
+        "https://servermultiapp.vercel.app/api/tasks"
       );
       if (Array.isArray(response.data)) {
         setTasks(response.data);
@@ -59,7 +59,7 @@ const ToDoList = () => {
     if (newTask.trim() !== "") {
       try {
         const response = await axios.post(
-          "https://servermulti-700ywcyu5-bob-jr-kabs-projects.vercel.app/api/tasks",
+          "https://servermultiapp.vercel.app/api/tasks",
           {
             task: newTask,
           }
@@ -74,9 +74,7 @@ const ToDoList = () => {
 
   const deleteTask = async (id) => {
     try {
-      await axios.delete(
-        `https://servermulti-700ywcyu5-bob-jr-kabs-projects.vercel.app/api/tasks/${id}`
-      );
+      await axios.delete(`https://servermultiapp.vercel.app/api/tasks/${id}`);
       setTasks((prevTasks) => prevTasks.filter((task) => task._id !== id));
     } catch (error) {
       console.error("Error deleting task:", error);
