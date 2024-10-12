@@ -1,11 +1,11 @@
-// server.js
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import bodyParser from "body-parser";
-import dotenv from "dotenv"; // Import dotenv
+import dotenv from "dotenv";
 import { connectDB } from "./config/db.js";
-dotenv.config(); // Load environment variables
+
+dotenv.config();
 
 const app = express();
 
@@ -14,7 +14,10 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // MongoDB connection
-const port = process.env.PORT || 5000;
+connectDB().catch((error) => {
+  console.error("Failed to connect to the database:", error);
+  process.exit(1);
+});
 
 // Define the task schema and model
 const taskSchema = new mongoose.Schema({
@@ -40,15 +43,5 @@ app.delete("/tasks/:id", async (req, res) => {
   res.sendStatus(204);
 });
 
-// Start the serverconnectDB()
-connectDB()
-  .then(() => {
-    // Start server only after successful DB connection
-    app.listen(port, () => {
-      console.log(`Server running at http://localhost:${port}`);
-    });
-  })
-  .catch((error) => {
-    console.error("Failed to connect to the database:", error);
-    process.exit(1); // Exit the process if DB connection fails
-  });
+// Vercel will handle the server listening
+console.log("Server is ready to receive requests on Vercel.");
