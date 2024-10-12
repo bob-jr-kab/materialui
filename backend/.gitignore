@@ -16,9 +16,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Environment variables
 
-materialui\.env
 
 # Miscellaneous
 .DS_Store
@@ -32,3 +30,4 @@ materialui\.env
 
 /frontend/node_modules/
 
+.env

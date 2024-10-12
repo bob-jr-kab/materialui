@@ -43,7 +43,7 @@ const Sidebar = () => {
             <ListItemIcon>
               <Settings />
             </ListItemIcon>
-            <ListItemText primary="To Do List" />
+            <ListItemText primary="Task Manager" />
           </ListItemButton>
         </ListItem>
 
@@ -53,6 +53,15 @@ const Sidebar = () => {
               <Settings />
             </ListItemIcon>
             <ListItemText primary="Calendar" />
+          </ListItemButton>
+        </ListItem>
+
+        <ListItem disablePadding>
+          <ListItemButton component={Link} to="/calculator">
+            <ListItemIcon>
+              <Settings />
+            </ListItemIcon>
+            <ListItemText primary="Calculator" />
           </ListItemButton>
         </ListItem>
       </List>

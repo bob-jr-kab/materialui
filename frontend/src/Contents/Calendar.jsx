@@ -9,9 +9,9 @@ const CalendarComponent = () => {
   const [date, setDate] = useState(new Date());
   const [events, setEvents] = useState([]);
   const [isSignedIn, setIsSignedIn] = useState(false);
-  const CLIENT_ID =
-    "701319142310-0iqgq03pldb7pupggj5kbqn8cj2lones.apps.googleusercontent.com"; // Replace with your client ID
-  const API_KEY = "AIzaSyDKmZjKFwcgkueBBeYF4m-1MjpQZ4Fkce4"; // Replace with your API key
+
+  const CLIENT_ID = process.env.VITE_CLIENT_ID; // Update here
+  const API_KEY = process.env.VITE_API_KEY; // Update here
   const DISCOVERY_DOCS = [
     "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest",
   ];

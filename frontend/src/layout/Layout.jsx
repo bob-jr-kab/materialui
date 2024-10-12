@@ -8,6 +8,7 @@ import MovieList from "../Contents/MovieList.jsx";
 import Counter from "../Contents/Counter.jsx";
 import ToDoList from "../Contents/ToDoList.jsx";
 import Calendar from "../Contents/Calendar.jsx";
+import Calculator from "../Contents/Calculator.jsx";
 const Layout = () => {
   const theme = createTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -29,6 +30,7 @@ const Layout = () => {
               <Routes>
                 <Route path="/" element={<MovieList />} />
                 <Route path="/calendar" element={<Calendar />} />
+                <Route path="/calculator" element={<Calculator />} />
                 <Route
                   path="/counter"
                   element={

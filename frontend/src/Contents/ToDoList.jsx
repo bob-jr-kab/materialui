@@ -74,12 +74,12 @@ const ToDoList = () => {
               T
             </Avatar>
           }
-          title="To Do List Program"
+          title="Task manager Program"
           subheader="September 16, 2024"
         />
         <Divider />
         <CardContent>
-          <h3> To Do</h3>
+          <h3> Task manager</h3>
           <Box
             display="flex"
             alignItems="center"
