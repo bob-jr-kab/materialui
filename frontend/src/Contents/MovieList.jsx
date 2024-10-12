@@ -21,16 +21,18 @@ const MovieList = () => {
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredMovies, setFilteredMovies] = useState([]);
+  const [page, setPage] = useState(1); // New state to track the page
+  const [loadingMore, setLoadingMore] = useState(false); // Loading state for fetching more movies
 
   useEffect(() => {
-    const getMovies = async () => {
-      const moviesFromApi = await fetchMovies();
-      setMovies(moviesFromApi);
-      setFilteredMovies(moviesFromApi);
+    const getMovies = async (page = 1) => {
+      const moviesFromApi = await fetchMovies(page); // Fetch movies based on the page number
+      setMovies((prevMovies) => [...prevMovies, ...moviesFromApi]); // Append new movies to the existing ones
+      setFilteredMovies((prevMovies) => [...prevMovies, ...moviesFromApi]);
     };
 
-    getMovies();
-  }, []);
+    getMovies(page); // Fetch movies for the current page when the component mounts or page changes
+  }, [page]);
 
   useEffect(() => {
     if (searchTerm) {
@@ -61,6 +63,12 @@ const MovieList = () => {
     setOpen(false);
     setSelectedMovie(null);
     setTrailerKey(null);
+  };
+
+  const loadMoreMovies = () => {
+    setLoadingMore(true);
+    setPage((prevPage) => prevPage + 1); // Increment page number to fetch more movies
+    setLoadingMore(false);
   };
 
   return (
@@ -121,12 +129,15 @@ const MovieList = () => {
             flexWrap="wrap"
             justifyContent="center"
             gap={2}
-            maxWidth="1200px"
+            maxWidth="1000px"
           >
             {filteredMovies.map((movie) => (
               <Card
                 key={movie.id}
-                sx={{ width: { xs: "45%", md: 200 }, height: 300 }} // Adjust width for small screens
+                sx={{
+                  width: { xs: "46%", md: 100 },
+                  height: { xs: "90", md: "150" },
+                }} // Adjust width for small screens
                 onClick={() => handleMovieClick(movie.id)}
               >
                 <CardMedia
@@ -144,6 +155,20 @@ const MovieList = () => {
         <Typography variant="h6" align="center" mt={4}>
           No movies available.
         </Typography>
+      )}
+
+      {/* More button */}
+      {filteredMovies.length > 0 && (
+        <Box display="flex" justifyContent="center" mt={3}>
+          <Button
+            variant="contained"
+            onClick={loadMoreMovies}
+            disabled={loadingMore}
+            sx={{ bgcolor: "#6A9C89" }}
+          >
+            {loadingMore ? "Loading..." : "More"}
+          </Button>
+        </Box>
       )}
 
       {/* Modal section */}

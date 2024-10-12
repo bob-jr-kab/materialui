@@ -20,7 +20,7 @@ const Layout = () => {
           <Navbar />
           <Stack
             direction={{ xs: "column", sm: "row" }}
-            spacing={isSmallScreen ? 0 : 21}
+            spacing={isSmallScreen ? 0 : 25}
             sx={{ width: "100%" }}
           >
             <Box>
@@ -28,7 +28,7 @@ const Layout = () => {
             </Box>
             <Box sx={{ width: "100%" }}>
               <Routes>
-                <Route path="/" element={<MovieList />} />
+                {/* <Route path="/" element={<MovieList />} /> */}
                 <Route path="/calendar" element={<Calendar />} />
                 <Route path="/calculator" element={<Calculator />} />
                 <Route
@@ -44,6 +44,15 @@ const Layout = () => {
                   element={
                     <Box sx={{ width: isSmallScreen ? "92%" : "97%" }}>
                       <ToDoList />
+                    </Box>
+                  }
+                />
+
+                <Route
+                  path="/"
+                  element={
+                    <Box sx={{ width: isSmallScreen ? "100%" : "100%" }}>
+                      <MovieList />
                     </Box>
                   }
                 />

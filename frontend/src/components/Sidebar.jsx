@@ -17,7 +17,7 @@ const Sidebar = () => {
       position="fixed"
       height="100vh"
       padding={2}
-      sx={{ display: { xs: "none", md: "block" } }}
+      sx={{ display: { xs: "none", sm: "block", md: "block" } }}
     >
       <List>
         <ListItem disablePadding>
