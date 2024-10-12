@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import axios from "axios"; // Import Axios
+import baseUrl from "../config";
 
 const StyledButton = styled(Button)({
   backgroundColor: "#6A9C89",
@@ -35,9 +36,7 @@ const ToDoList = () => {
   }, []);
 
   const fetchTasks = async () => {
-    const response = await axios.get(
-      "http://multiappserver-git-master-bob-jr-kabs-projects.vercel.app/api/tasks"
-    );
+    const response = await axios.get("${baseUrl}/tasks");
     setTasks(response.data);
   };
 
@@ -47,21 +46,16 @@ const ToDoList = () => {
 
   const addTask = async () => {
     if (newTask.trim() !== "") {
-      const response = await axios.post(
-        "http://multiappserver-git-master-bob-jr-kabs-projects.vercel.app/api/tasks",
-        {
-          task: newTask,
-        }
-      );
+      const response = await axios.post("${baseUrl}/tasks", {
+        task: newTask,
+      });
       setTasks((prevTasks) => [...prevTasks, response.data]);
       setNewTask("");
     }
   };
 
   const deleteTask = async (id) => {
-    await axios.delete(
-      `http://multiappserver-git-master-bob-jr-kabs-projects.vercel.app/api/tasks/${id}`
-    );
+    await axios.delete(`${baseUrl}/tasks/${id}`);
     setTasks(tasks.filter((task) => task._id !== id));
   };
 

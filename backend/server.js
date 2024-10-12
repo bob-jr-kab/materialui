@@ -11,7 +11,13 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin:
+      "https://multiappclient-git-master-bob-jr-kabs-projects.vercel.app/",
+    optionsSuccessStatus: 200,
+  })
+);
 app.use(express.json());
 app.use(bodyParser.json());
 // Routes
