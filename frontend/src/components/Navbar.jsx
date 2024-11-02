@@ -62,7 +62,7 @@ const Navbar = () => {
               sx={{ display: { xs: "none", sm: "block" } }}
             />
             <Typography sx={{ display: { xs: "none", sm: "block" } }}>
-              MUI Design
+              React Spectrum
             </Typography>
           </Stack>
 

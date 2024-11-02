@@ -13,7 +13,7 @@ const port = process.env.PORT || 5000;
 // CORS configuration
 const allowedOrigins = [
   "https://multiappclient.vercel.app", // Production frontend
-  "http://localhost:3000", // Local development frontend
+  "http://localhost:5173", // Local development frontend
 ];
 
 // Configure CORS

@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import axios from "axios"; // Import Axios
+import baseUrl from "../config.jsx";
 
 const StyledButton = styled(Button)({
   backgroundColor: "#6A9C89",
@@ -31,16 +32,21 @@ const ToDoList = () => {
   const [newTask, setNewTask] = useState("");
 
   useEffect(() => {
-    fetchTasks(); // Fetch tasks on component mount
+    // Check if tasks are stored in localStorage
+    const storedTasks = localStorage.getItem("tasks");
+    if (storedTasks) {
+      setTasks(JSON.parse(storedTasks));
+    } else {
+      fetchTasks(); // Fetch tasks if not found in localStorage
+    }
   }, []);
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get(
-        "https://servermultiapp.vercel.app/api/tasks"
-      );
+      const response = await axios.get(`${baseUrl}/api/tasks`);
       if (Array.isArray(response.data)) {
         setTasks(response.data);
+        localStorage.setItem("tasks", JSON.stringify(response.data)); // Save to localStorage
       } else {
         console.error("Received data is not an array:", response.data);
         setTasks([]);
@@ -58,13 +64,12 @@ const ToDoList = () => {
   const addTask = async () => {
     if (newTask.trim() !== "") {
       try {
-        const response = await axios.post(
-          "https://servermultiapp.vercel.app/api/tasks",
-          {
-            task: newTask,
-          }
-        );
-        setTasks((prevTasks) => [...prevTasks, response.data]);
+        const response = await axios.post(`${baseUrl}/api/tasks`, {
+          task: newTask,
+        });
+        const updatedTasks = [...tasks, response.data];
+        setTasks(updatedTasks);
+        localStorage.setItem("tasks", JSON.stringify(updatedTasks)); // Update localStorage
         setNewTask("");
       } catch (error) {
         console.error("Error adding task:", error);
@@ -74,8 +79,10 @@ const ToDoList = () => {
 
   const deleteTask = async (id) => {
     try {
-      await axios.delete(`https://servermultiapp.vercel.app/api/tasks/${id}`);
-      setTasks((prevTasks) => prevTasks.filter((task) => task._id !== id));
+      await axios.delete(`${baseUrl}/api/tasks/${id}`);
+      const updatedTasks = tasks.filter((task) => task._id !== id);
+      setTasks(updatedTasks);
+      localStorage.setItem("tasks", JSON.stringify(updatedTasks)); // Update localStorage
     } catch (error) {
       console.error("Error deleting task:", error);
     }

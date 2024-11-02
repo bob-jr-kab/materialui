@@ -21,18 +21,40 @@ const MovieList = () => {
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredMovies, setFilteredMovies] = useState([]);
-  const [page, setPage] = useState(1); // New state to track the page
-  const [loadingMore, setLoadingMore] = useState(false); // Loading state for fetching more movies
+  const [page, setPage] = useState(1);
+  const [loadingMore, setLoadingMore] = useState(false);
 
   useEffect(() => {
-    const getMovies = async (page = 1) => {
-      const moviesFromApi = await fetchMovies(page); // Fetch movies based on the page number
-      setMovies((prevMovies) => [...prevMovies, ...moviesFromApi]); // Append new movies to the existing ones
-      setFilteredMovies((prevMovies) => [...prevMovies, ...moviesFromApi]);
-    };
+    const storedMovies = localStorage.getItem("movies");
+    if (storedMovies) {
+      const parsedMovies = JSON.parse(storedMovies);
+      setMovies(parsedMovies);
+      setFilteredMovies(parsedMovies);
+    } else {
+      getMovies(page);
+    }
+  }, []);
 
-    getMovies(page); // Fetch movies for the current page when the component mounts or page changes
+  useEffect(() => {
+    if (page > 1) {
+      getMovies(page);
+    }
   }, [page]);
+
+  const getMovies = async (page) => {
+    setLoadingMore(true);
+    try {
+      const moviesFromApi = await fetchMovies(page);
+      const updatedMovies = [...movies, ...moviesFromApi];
+      setMovies(updatedMovies);
+      setFilteredMovies(updatedMovies);
+      localStorage.setItem("movies", JSON.stringify(updatedMovies));
+    } catch (error) {
+      console.error("Error fetching movies:", error);
+    } finally {
+      setLoadingMore(false);
+    }
+  };
 
   useEffect(() => {
     if (searchTerm) {
@@ -66,36 +88,36 @@ const MovieList = () => {
   };
 
   const loadMoreMovies = () => {
-    setLoadingMore(true);
-    setPage((prevPage) => prevPage + 1); // Increment page number to fetch more movies
-    setLoadingMore(false);
+    setPage((prevPage) => prevPage + 1);
   };
 
   return (
-    <Box>
+    <Box sx={{ background: "#e9efec", paddingTop: "20px" }}>
       {/* Header section */}
       <Box
         display="flex"
         justifyContent="space-between"
         alignItems="center"
-        mt={2}
-        px={{ xs: 2, sm: 5, md: 10 }} // Adjust margin left and right for responsive design
+        px={{ xs: 2, sm: 5, md: 10 }}
         sx={{
-          flexDirection: { xs: "column", sm: "row" }, // Stack vertically on small screens
-          alignItems: { xs: "flex-start", sm: "center" }, // Align left on small screens
+          flexDirection: { xs: "column", sm: "row" },
+          alignItems: { xs: "flex-start", sm: "center" },
         }}
       >
-        {/* Title aligned to the left */}
-        <Typography variant="h5" sx={{ mb: { xs: 1, sm: 0 } }}>
+        {/* Title */}
+        <Typography
+          variant="h5"
+          sx={{ mb: { xs: 1, sm: 0 }, color: "#274b4b" }}
+        >
           Popular Movies
         </Typography>
 
-        {/* Search and button aligned to the right */}
+        {/* Search */}
         <Box
           display="flex"
           alignItems="center"
-          width={{ xs: "100%", sm: "auto" }} // Full width on small screens
-          sx={{ gap: "10px", marginTop: { xs: 1, sm: 0 } }} // Remove gap for smaller screens
+          width={{ xs: "100%", sm: "auto" }}
+          sx={{ gap: "10px", marginTop: { xs: 1, sm: 0 } }}
         >
           <TextField
             label="Search"
@@ -104,10 +126,10 @@ const MovieList = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
             sx={{
               "& .MuiInputBase-root": {
-                height: "40px", // Adjust the height here
+                height: "40px",
               },
               "& .MuiInputLabel-root": {
-                lineHeight: "20px", // Center label vertically
+                lineHeight: "20px",
               },
             }}
           />
@@ -131,13 +153,13 @@ const MovieList = () => {
             gap={2}
             maxWidth="1000px"
           >
-            {filteredMovies.map((movie) => (
+            {filteredMovies.map((movie, index) => (
               <Card
-                key={movie.id}
+                key={movie.id ? movie.id : `movie-${index}`}
                 sx={{
                   width: { xs: "46%", md: 100 },
                   height: { xs: "90", md: "150" },
-                }} // Adjust width for small screens
+                }}
                 onClick={() => handleMovieClick(movie.id)}
               >
                 <CardMedia
@@ -153,7 +175,7 @@ const MovieList = () => {
         </Box>
       ) : (
         <Typography variant="h6" align="center" mt={4}>
-          No movies available.
+          Loading...
         </Typography>
       )}
 

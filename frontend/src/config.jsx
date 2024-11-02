@@ -1,6 +1,6 @@
 const baseUrl =
-  process.env.NODE_ENV === "production"
-    ? "https://multiappserver-b6t08m1oj-bob-jr-kabs-projects.vercel.app"
-    : "http://localhost:5000";
+  import.meta.env.MODE === "production"
+    ? import.meta.env.VITE_API_URL_PRODUCTION
+    : import.meta.env.VITE_API_URL_DEVELOPMENT;
 
 export default baseUrl;
