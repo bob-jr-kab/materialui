@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import {
   Avatar,
   Card,
@@ -12,9 +13,9 @@ import {
   List,
   ListItem,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
 import axios from "axios"; // Import Axios
 import baseUrl from "../config.jsx";
+import { useScreenSize } from "../context/ScreenSizeContext";
 
 const StyledButton = styled(Button)({
   backgroundColor: "#6A9C89",
@@ -28,6 +29,8 @@ const DeleteButton = styled(Button)({
 });
 
 const ToDoList = () => {
+  const { isSmallScreen, isTabletScreen, isLargeScreen } = useScreenSize(); // Moved hook call inside component
+
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState("");
 
@@ -94,10 +97,14 @@ const ToDoList = () => {
       color="red"
       padding={2}
       align="center"
-      sx={{ width: "100%" }}
+      sx={{ maxWidth: "100%" }}
       height="100vh"
     >
-      <Card sx={{ maxWidth: { xs: "100%", sm: "50%", marginTop: "50px" } }}>
+      <Card
+        sx={{
+          maxWidth: isSmallScreen ? "100%" : isTabletScreen ? "90%" : "50%", // Use the screen size values here
+        }}
+      >
         <CardHeader
           avatar={
             <Avatar sx={{ bgcolor: "#C4DAD2" }} aria-label="recipe">
@@ -144,7 +151,7 @@ const ToDoList = () => {
                     sx={{
                       display: "flex",
                       alignItems: "center",
-                      width: "400px",
+                      width: "100%",
                     }}
                   >
                     <Typography sx={{ flexGrow: 1 }}>

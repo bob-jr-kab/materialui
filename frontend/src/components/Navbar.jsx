@@ -61,7 +61,26 @@ const Navbar = () => {
               fontSize="large"
               sx={{ display: { xs: "none", sm: "block" } }}
             />
-            <Typography sx={{ display: { xs: "none", sm: "block" } }}>
+            <Typography
+              component={Link}
+              to="/"
+              sx={{
+                textDecoration: "none",
+                color: "inherit",
+                display: { xs: "block", sm: "none" },
+              }}
+            >
+              React Spectrum
+            </Typography>
+            <Typography
+              component={Link}
+              to="/"
+              sx={{
+                textDecoration: "none",
+                color: "inherit",
+                display: { xs: "none", sm: "block" },
+              }}
+            >
               React Spectrum
             </Typography>
           </Stack>
@@ -70,7 +89,7 @@ const Navbar = () => {
             <Typography sx={{ display: { xs: "none", sm: "block" } }}>
               <strong>Bob Junior</strong>
             </Typography>
-            <Box>
+            <Box sx={{ display: { xs: "none", sm: "block" } }}>
               <Avatar
                 alt="Remy Sharp"
                 src="https://img.freepik.com/free-photo/androgynous-avatar-non-binary-queer-person_23-2151100270.jpg?size=626&ext=jpg&ga=GA1.1.1450398461.1724012399&semt=ais_hybrid"

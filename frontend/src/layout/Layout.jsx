@@ -3,63 +3,119 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 import Sidebar from "../components/Sidebar.jsx";
 import Navbar from "../components/Navbar.jsx";
-import { Box, useMediaQuery, createTheme, ThemeProvider } from "@mui/material";
+import {
+  styled,
+  useMediaQuery,
+  createTheme,
+  ThemeProvider,
+} from "@mui/material";
 import MovieList from "../Contents/MovieList.jsx";
 import Counter from "../Contents/Counter.jsx";
 import ToDoList from "../Contents/ToDoList.jsx";
-import Calendar from "../Contents/Calendar.jsx";
 import Calculator from "../Contents/Calculator.jsx";
+import HomePage from "../pages/Homepage.jsx";
+import NotFoundPage from "../pages/NotFoundPage.jsx";
+
+const StyledHomeContainer = styled("div")(
+  ({ isSmallScreen, isTabletScreen }) => ({
+    width: "100%",
+    height: "100vh",
+    display: "flex",
+    position: "fixed",
+    paddingTop: isTabletScreen ? "5%" : "10%",
+    paddingLeft: isSmallScreen ? "0px" : isTabletScreen ? "0%" : "5%",
+    backgroundImage:
+      "linear-gradient(135deg, hsla(144, 4%, 77%, 1) 10%, hsla(150, 16%, 93%, 1) 50%, hsla(144, 4%, 77%, 1) 100%)",
+  })
+);
+
+const StyledNotFoundContainer = styled("div")(
+  ({ theme, isSmallScreen, isTabletScreen }) => ({
+    width: "100%",
+    height: "100vh",
+    display: "flex",
+    position: "fixed",
+    paddingTop: "10%",
+    paddingLeft: isSmallScreen ? "0px" : isTabletScreen ? "5%" : "20%",
+    backgroundImage:
+      "linear-gradient(135deg, hsla(144, 4%, 77%, 1) 10%, hsla(150, 16%, 93%, 1) 50%, hsla(144, 4%, 77%, 1) 100%)",
+  })
+);
+
 const Layout = () => {
   const theme = createTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const isTabletScreen = useMediaQuery(theme.breakpoints.between("sm", "md"));
 
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        <Box>
+        <div>
           <Navbar />
+
           <Stack
             direction={{ xs: "column", sm: "row" }}
-            spacing={isSmallScreen ? 0 : 25}
+            spacing={isSmallScreen ? 0 : isTabletScreen ? 15 : 10}
             sx={{ width: "100%" }}
           >
-            <Box>
+            <div style={{ width: "19%" }}>
               <Sidebar />
-            </Box>
-            <Box sx={{ width: "100%" }}>
+            </div>
+            <div style={{ width: "100%" }}>
               <Routes>
-                {/* <Route path="/" element={<MovieList />} /> */}
-                <Route path="/calendar" element={<Calendar />} />
                 <Route path="/calculator" element={<Calculator />} />
                 <Route
                   path="/counter"
                   element={
-                    <Box sx={{ width: isSmallScreen ? "92%" : "97%" }}>
+                    <div style={{ width: isSmallScreen ? "92%" : "97%" }}>
                       <Counter />
-                    </Box>
+                    </div>
                   }
                 />
                 <Route
                   path="/todo"
                   element={
-                    <Box sx={{ width: isSmallScreen ? "92%" : "97%" }}>
+                    <div style={{ width: "100%" }}>
                       <ToDoList />
-                    </Box>
+                    </div>
                   }
                 />
 
                 <Route
                   path="/"
                   element={
-                    <Box sx={{ width: isSmallScreen ? "100%" : "100%" }}>
+                    <StyledHomeContainer
+                      isSmallScreen={isSmallScreen}
+                      isTabletScreen={isTabletScreen}
+                    >
+                      <HomePage />
+                    </StyledHomeContainer>
+                  }
+                />
+
+                <Route
+                  path="/movies"
+                  element={
+                    <div style={{ width: isSmallScreen ? "100%" : "100%" }}>
                       <MovieList />
-                    </Box>
+                    </div>
+                  }
+                />
+                <Route
+                  path="*"
+                  element={
+                    <StyledNotFoundContainer
+                      isSmallScreen={isSmallScreen}
+                      isTabletScreen={isTabletScreen}
+                    >
+                      <NotFoundPage />
+                    </StyledNotFoundContainer>
                   }
                 />
               </Routes>
-            </Box>
+            </div>
           </Stack>
-        </Box>
+        </div>
       </Router>
     </ThemeProvider>
   );

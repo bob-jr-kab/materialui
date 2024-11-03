@@ -12,16 +12,27 @@ const Sidebar = () => {
   return (
     <Box
       bgcolor="#16423C"
-      flex={2}
       color="#E9EFEC"
       position="fixed"
       height="100vh"
       padding={2}
-      sx={{ display: { xs: "none", sm: "block", md: "block" } }}
+      sx={{
+        display: { xs: "none", sm: "block", md: "block" },
+        width: { sm: "25%", md: "20%" },
+      }}
     >
       <List>
         <ListItem disablePadding>
           <ListItemButton component={Link} to="/">
+            <ListItemIcon>
+              <Home />
+            </ListItemIcon>
+            <ListItemText primary="Home" />
+          </ListItemButton>
+        </ListItem>
+
+        <ListItem disablePadding>
+          <ListItemButton component={Link} to="/movies">
             <ListItemIcon>
               <Home />
             </ListItemIcon>
