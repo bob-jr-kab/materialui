@@ -13,7 +13,7 @@ import MovieList from "../Contents/MovieList.jsx";
 import Counter from "../Contents/Counter.jsx";
 import ToDoList from "../Contents/ToDoList.jsx";
 import Calculator from "../Contents/Calculator.jsx";
-import HomePage from "../pages/Homepage.jsx";
+import HomePage from "../pages/HomePage.jsx";
 import NotFoundPage from "../pages/NotFoundPage.jsx";
 
 const StyledHomeContainer = styled("div")(
