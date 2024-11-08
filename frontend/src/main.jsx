@@ -8,6 +8,7 @@ root.render(
   <React.StrictMode>
     <GlobalStyles
       styles={{
+        overscrollBehavior: "none ",
         fontFamily: "Tinos,Montserrat,PT Sans",
         body: { margin: 0, padding: 0 },
         html: { margin: 0, padding: 0 },

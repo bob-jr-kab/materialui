@@ -12,7 +12,10 @@ import {
   Button,
   Modal,
   CardMedia,
+  Breadcrumbs,
+  Link,
 } from "@mui/material";
+import { PieChart, Pie, Cell, ResponsiveContainer, Label } from "recharts";
 
 const MovieList = () => {
   const [movies, setMovies] = useState([]);
@@ -91,8 +94,66 @@ const MovieList = () => {
     setPage((prevPage) => prevPage + 1);
   };
 
+  // Function to render the rating chart
+  const renderRatingChart = (rating) => {
+    const data = [
+      { name: "Rating", value: rating },
+      { name: "Remaining", value: 10 - rating },
+    ];
+
+    return (
+      <ResponsiveContainer width="100%" height={50}>
+        <PieChart>
+          <Pie
+            data={data}
+            cx="10%"
+            cy="45%"
+            innerRadius={15}
+            outerRadius={20}
+            fill="#8884d8"
+            paddingAngle={2}
+            dataKey="value"
+          >
+            {data.map((entry, index) => (
+              <Cell
+                key={`cell-${index}`}
+                fill={index === 0 ? "#4CAF50" : "#E0E0E0"}
+              />
+            ))}
+            {/* Display the rating number in the center of the chart */}
+            <Label
+              value={rating.toFixed(1)} // Show rating to one decimal place
+              position="center"
+              style={{
+                fontSize: "14px",
+                fontWeight: "bold",
+                fill: "#000", // Color of the text
+              }}
+            />
+          </Pie>
+        </PieChart>
+      </ResponsiveContainer>
+    );
+  };
+
   return (
-    <Box sx={{ background: "#e9efec", paddingTop: "20px" }}>
+    <Box
+      sx={{
+        backgroundImage:
+          "linear-gradient(135deg, hsla(144, 4%, 77%, 1) 10%, hsla(150, 16%, 93%, 1) 50%, hsla(144, 4%, 77%, 1) 100%)",
+        paddingTop: "20px",
+      }}
+    >
+      {/* Breadcrumbs Navigation */}
+      <Box px={{ xs: 2, sm: 5, md: 10 }} mb={2}>
+        <Breadcrumbs aria-label="breadcrumb">
+          <Link underline="hover" color="inherit" href="/">
+            Home
+          </Link>
+          <Typography color="textPrimary">Movies</Typography>
+        </Breadcrumbs>
+      </Box>
+
       {/* Header section */}
       <Box
         display="flex"
@@ -200,26 +261,38 @@ const MovieList = () => {
             bgcolor: "background.paper",
             borderRadius: 2,
             padding: 2,
-            width: 600,
+            width: { xs: "90%", sm: 600 },
             margin: "auto",
-            marginTop: "5%",
+            marginTop: { xs: "5%", sm: "5%" },
           }}
         >
           {selectedMovie && (
             <>
-              <Typography variant="h6">{selectedMovie.title}</Typography>
-              <Typography variant="body1">{selectedMovie.overview}</Typography>
+              <Typography variant="h5" sx={{ color: "#274b4b", mb: 1 }}>
+                {selectedMovie.title}
+              </Typography>
+              <Typography sx={{ mb: 2 }}>{selectedMovie.overview}</Typography>
               <Typography variant="body2">
                 Release Date: {selectedMovie.release_date}
               </Typography>
-              <Typography variant="body2">
-                Rating: {selectedMovie.vote_average}
-              </Typography>
+
+              {/* Render the rating chart dynamically */}
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                sx={{ mb: 2 }}
+              >
+                <Typography variant="body2" sx={{ mr: 2 }}>
+                  Rating:
+                </Typography>
+                {renderRatingChart(selectedMovie.vote_average)}
+              </Box>
 
               {trailerKey ? (
                 <Box sx={{ marginTop: 2 }}>
                   <iframe
-                    width="80%"
+                    width="100%"
                     height="250"
                     src={`https://www.youtube.com/embed/${trailerKey}`}
                     title="YouTube video player"

@@ -15,6 +15,7 @@ import ToDoList from "../Contents/ToDoList.jsx";
 import Calculator from "../Contents/Calculator.jsx";
 import HomePage from "../pages/HomePage.jsx";
 import NotFoundPage from "../pages/NotFoundPage.jsx";
+import ExchangeRate from "../Contents/ExchangeRate.jsx";
 
 const StyledHomeContainer = styled("div")(
   ({ isSmallScreen, isTabletScreen }) => ({
@@ -77,6 +78,19 @@ const Layout = () => {
                   element={
                     <div style={{ width: "100%" }}>
                       <ToDoList />
+                    </div>
+                  }
+                />
+
+                <Route
+                  path="/exchange"
+                  element={
+                    <div
+                      style={{
+                        width: "100%",
+                      }}
+                    >
+                      <ExchangeRate />
                     </div>
                   }
                 />

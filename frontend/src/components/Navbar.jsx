@@ -19,8 +19,11 @@ import {
   Menu as MenuIcon,
   Home,
   People,
-  Settings,
-} from "@mui/icons-material";
+  ListAlt,
+  CurrencyExchange,
+  Calculate,
+  Movie,
+} from "@mui/icons-material"; // Importing the required icons
 import { Link } from "react-router-dom";
 
 const StyledToolbar = styled(Toolbar)(() => ({
@@ -50,7 +53,6 @@ const Navbar = () => {
       <AppBar position="sticky" sx={{ width: "100%" }}>
         <StyledToolbar>
           <Stack direction="row" gap={2} alignItems="center">
-            {/* Show MenuIcon toggle in place of the logo on small devices */}
             <IconButton
               onClick={toggleDrawer(true)}
               sx={{ display: { xs: "block", sm: "none" } }}
@@ -109,22 +111,40 @@ const Navbar = () => {
         >
           <List>
             <ListItem component={Link} to="/">
-              <ListItemIcon>
+              <ListItemIcon sx={{ color: "#16423c" }}>
                 <Home />
               </ListItemIcon>
-              <ListItemText primary="Movies" />
+              <ListItemText sx={{ color: "black" }} primary="Home" />
+            </ListItem>
+            <ListItem component={Link} to="/movies">
+              <ListItemIcon sx={{ color: "#16423c" }}>
+                <Movie />
+              </ListItemIcon>
+              <ListItemText sx={{ color: "black" }} primary="Movies" />
             </ListItem>
             <ListItem component={Link} to="/counter">
-              <ListItemIcon>
+              <ListItemIcon sx={{ color: "#16423c" }}>
                 <People />
               </ListItemIcon>
-              <ListItemText primary="Counter" />
+              <ListItemText sx={{ color: "black" }} primary="Counter" />
             </ListItem>
             <ListItem component={Link} to="/todo">
-              <ListItemIcon>
-                <Settings />
+              <ListItemIcon sx={{ color: "#16423c" }}>
+                <ListAlt />
               </ListItemIcon>
-              <ListItemText primary="To Do List" />
+              <ListItemText sx={{ color: "black" }} primary="Task Manager" />
+            </ListItem>
+            <ListItem component={Link} to="/exchange">
+              <ListItemIcon sx={{ color: "#16423c" }}>
+                <CurrencyExchange />
+              </ListItemIcon>
+              <ListItemText sx={{ color: "black" }} primary="Exchange" />
+            </ListItem>
+            <ListItem component={Link} to="/calculator">
+              <ListItemIcon sx={{ color: "#16423c" }}>
+                <Calculate />
+              </ListItemIcon>
+              <ListItemText sx={{ color: "black" }} primary="Calculator" />
             </ListItem>
           </List>
         </Box>

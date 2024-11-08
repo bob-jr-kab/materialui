@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  TextField,
+  Typography,
+  Breadcrumbs,
+  Link,
+} from "@mui/material";
 
 const Calculator = () => {
   const [input, setInput] = useState("");
@@ -55,11 +62,26 @@ const Calculator = () => {
       display="flex"
       flexDirection="column"
       alignItems="center"
-      justifyContent="center"
+      // justifyContent="center"
       minHeight="100vh"
-      bgcolor="#f5f5f5"
+      sx={{
+        paddingLeft: "3%",
+        overscrollBehavior: "none",
+        backgroundImage:
+          "linear-gradient(135deg, hsla(144, 4%, 77%, 1) 10%, hsla(150, 16%, 93%, 1) 50%, hsla(144, 4%, 77%, 1) 100%)",
+      }}
       p={2}
     >
+      {/* Breadcrumbs Navigation */}
+      <Box px={2} mb={2} width="100%">
+        <Breadcrumbs aria-label="breadcrumb">
+          <Link underline="hover" color="inherit" href="/">
+            Home
+          </Link>
+          <Typography color="textPrimary">Calculator</Typography>
+        </Breadcrumbs>
+      </Box>
+
       <TextField
         value={input}
         onChange={(e) => setInput(e.target.value)}
@@ -72,17 +94,28 @@ const Calculator = () => {
         {/* First Row with Clear (C) and Backspace */}
         <Button
           variant="contained"
-          sx={{ gridColumn: "span 2" }}
-          color="error"
+          sx={{
+            gridColumn: "span 2",
+            backgroundColor: "#e2de63",
+            color: "white",
+          }}
           onClick={handleClear}
         >
           C
         </Button>
-        <Button variant="contained" onClick={handleBackspace}>
+        <Button
+          variant="contained"
+          sx={{ backgroundColor: "#b96608", color: "white" }}
+          onClick={handleBackspace}
+        >
           ⌫
         </Button>
 
-        <Button variant="contained" onClick={() => handleButtonClick("/")}>
+        <Button
+          variant="contained"
+          sx={{ backgroundColor: "#9b9f9d", color: "white" }}
+          onClick={() => handleButtonClick("/")}
+        >
           /
         </Button>
 
@@ -91,7 +124,10 @@ const Calculator = () => {
           <Button
             key={item}
             variant="contained"
-            color={/\d/.test(item) ? "primary" : "default"} // Blue for numbers, default for operators
+            sx={{
+              backgroundColor: /\d/.test(item) ? "#6a9c89" : "#9b9f9d",
+              color: "white",
+            }}
             onClick={() => handleButtonClick(item)}
           >
             {item}
@@ -103,7 +139,10 @@ const Calculator = () => {
           <Button
             key={item}
             variant="contained"
-            color={/\d/.test(item) ? "primary" : "default"}
+            sx={{
+              backgroundColor: /\d/.test(item) ? "#6a9c89" : "#9b9f9d",
+              color: "white",
+            }}
             onClick={() => handleButtonClick(item)}
           >
             {item}
@@ -115,7 +154,10 @@ const Calculator = () => {
           <Button
             key={item}
             variant="contained"
-            color={/\d/.test(item) ? "primary" : "default"}
+            sx={{
+              backgroundColor: /\d/.test(item) ? "#6a9c89" : "#6a9c89",
+              color: "white",
+            }}
             onClick={() => handleButtonClick(item)}
           >
             {item}
@@ -125,8 +167,7 @@ const Calculator = () => {
         {/* The + button spanning 2 rows */}
         <Button
           variant="contained"
-          color="default"
-          sx={{ gridRow: "span 2" }} // Spanning 2 rows for the "+" button
+          sx={{ gridRow: "span 2", backgroundColor: "#9b9f9d", color: "white" }}
           onClick={() => handleButtonClick("+")}
         >
           +
@@ -135,15 +176,23 @@ const Calculator = () => {
         {/* Last Row: 0, ., = */}
         <Button
           variant="contained"
-          color="primary"
+          sx={{ backgroundColor: "#6a9c89", color: "white" }}
           onClick={() => handleButtonClick("0")}
         >
           0
         </Button>
-        <Button variant="contained" onClick={() => handleButtonClick(".")}>
+        <Button
+          variant="contained"
+          sx={{ backgroundColor: "#6a9c89", color: "white" }}
+          onClick={() => handleButtonClick(".")}
+        >
           .
         </Button>
-        <Button variant="contained" color="success" onClick={handleCalculate}>
+        <Button
+          variant="contained"
+          sx={{ backgroundColor: "#26662b", color: "white" }}
+          onClick={handleCalculate}
+        >
           =
         </Button>
       </Box>

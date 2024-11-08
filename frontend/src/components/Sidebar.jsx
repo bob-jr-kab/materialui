@@ -5,13 +5,20 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import { Home, People, Settings } from "@mui/icons-material";
+import {
+  Home,
+  Movie,
+  People,
+  ListAlt,
+  CurrencyExchange,
+  Calculate,
+} from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   return (
     <Box
-      bgcolor="#16423C"
+      bgcolor="#16423c"
       color="#E9EFEC"
       position="fixed"
       height="100vh"
@@ -34,7 +41,7 @@ const Sidebar = () => {
         <ListItem disablePadding>
           <ListItemButton component={Link} to="/movies">
             <ListItemIcon>
-              <Home />
+              <Movie />
             </ListItemIcon>
             <ListItemText primary="Movies" />
           </ListItemButton>
@@ -52,25 +59,25 @@ const Sidebar = () => {
         <ListItem disablePadding>
           <ListItemButton component={Link} to="/todo">
             <ListItemIcon>
-              <Settings />
+              <ListAlt />
             </ListItemIcon>
             <ListItemText primary="Task Manager" />
           </ListItemButton>
         </ListItem>
 
         <ListItem disablePadding>
-          <ListItemButton component={Link} to="/calendar">
+          <ListItemButton component={Link} to="/exchange">
             <ListItemIcon>
-              <Settings />
+              <CurrencyExchange />
             </ListItemIcon>
-            <ListItemText primary="Calendar" />
+            <ListItemText primary="Exchange" />
           </ListItemButton>
         </ListItem>
 
         <ListItem disablePadding>
           <ListItemButton component={Link} to="/calculator">
             <ListItemIcon>
-              <Settings />
+              <Calculate />
             </ListItemIcon>
             <ListItemText primary="Calculator" />
           </ListItemButton>

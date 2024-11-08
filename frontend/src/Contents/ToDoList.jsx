@@ -12,6 +12,8 @@ import {
   Box,
   List,
   ListItem,
+  Breadcrumbs,
+  Link,
 } from "@mui/material";
 import axios from "axios"; // Import Axios
 import baseUrl from "../config.jsx";
@@ -35,13 +37,14 @@ const ToDoList = () => {
   const [newTask, setNewTask] = useState("");
 
   useEffect(() => {
-    // Check if tasks are stored in localStorage
-    const storedTasks = localStorage.getItem("tasks");
-    if (storedTasks) {
-      setTasks(JSON.parse(storedTasks));
-    } else {
-      fetchTasks(); // Fetch tasks if not found in localStorage
-    }
+    // Fetch tasks on component mount and on page refresh
+    fetchTasks();
+
+    // Optional: Set an interval to fetch updates every minute
+    const intervalId = setInterval(fetchTasks, 60000); // 60000 ms = 1 minute
+
+    // Clean up the interval on component unmount
+    return () => clearInterval(intervalId);
   }, []);
 
   const fetchTasks = async () => {
@@ -93,15 +96,29 @@ const ToDoList = () => {
 
   return (
     <Box
-      bgcolor="#E9EFEC"
       color="red"
       padding={2}
       align="center"
-      sx={{ maxWidth: "100%" }}
+      sx={{
+        maxWidth: "100%",
+        backgroundImage:
+          "linear-gradient(135deg, hsla(144, 4%, 77%, 1) 10%, hsla(150, 16%, 93%, 1) 50%, hsla(144, 4%, 77%, 1) 100%)",
+      }}
       height="100vh"
     >
+      {/* Breadcrumbs Navigation */}
+      <Box px={2} mb={2}>
+        <Breadcrumbs aria-label="breadcrumb">
+          <Link underline="hover" color="inherit" href="/">
+            Home
+          </Link>
+          <Typography color="textPrimary">Task Manager</Typography>
+        </Breadcrumbs>
+      </Box>
+
       <Card
         sx={{
+          backgroundColor: "#e6ece9",
           maxWidth: isSmallScreen ? "100%" : isTabletScreen ? "90%" : "50%", // Use the screen size values here
         }}
       >

@@ -29,14 +29,19 @@ const Counter = () => {
   };
   return (
     <Box
-      bgcolor="#E9EFEC"
       color="red"
       padding={2}
       align="center"
       height="100vh"
-      sx={{ width: "100%" }}
+      sx={{
+        width: "100%",
+        backgroundImage:
+          "linear-gradient(135deg, hsla(144, 4%, 77%, 1) 10%, hsla(150, 16%, 93%, 1) 50%, hsla(144, 4%, 77%, 1) 100%)",
+      }}
     >
-      <Card sx={{ maxWidth: { xs: "100%", sm: "50%" } }}>
+      <Card
+        sx={{ maxWidth: { xs: "100%", sm: "50%", backgroundColor: "#e6ece9" } }}
+      >
         <CardHeader
           avatar={
             <Avatar sx={{ bgcolor: "#C4DAD2" }} aria-label="recipe">
