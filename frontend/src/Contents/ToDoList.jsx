@@ -101,8 +101,6 @@ const ToDoList = () => {
       align="center"
       sx={{
         maxWidth: "100%",
-        backgroundImage:
-          "linear-gradient(135deg, hsla(144, 4%, 77%, 1) 10%, hsla(150, 16%, 93%, 1) 50%, hsla(144, 4%, 77%, 1) 100%)",
       }}
       height="100vh"
     >

@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import Stack from "@mui/material/Stack";
 import Sidebar from "../components/Sidebar.jsx";
 import Navbar from "../components/Navbar.jsx";
@@ -10,12 +15,12 @@ import {
   ThemeProvider,
 } from "@mui/material";
 import MovieList from "../Contents/MovieList.jsx";
-import Counter from "../Contents/Counter.jsx";
 import ToDoList from "../Contents/ToDoList.jsx";
 import Calculator from "../Contents/Calculator.jsx";
 import HomePage from "../pages/HomePage.jsx";
 import NotFoundPage from "../pages/NotFoundPage.jsx";
 import ExchangeRate from "../Contents/ExchangeRate.jsx";
+import UnitConverter from "../Contents/ConvertUnits.jsx";
 
 const StyledHomeContainer = styled("div")(
   ({ isSmallScreen, isTabletScreen }) => ({
@@ -25,8 +30,6 @@ const StyledHomeContainer = styled("div")(
     position: "fixed",
     paddingTop: isTabletScreen ? "5%" : "10%",
     paddingLeft: isSmallScreen ? "0px" : isTabletScreen ? "0%" : "5%",
-    backgroundImage:
-      "linear-gradient(135deg, hsla(144, 4%, 77%, 1) 10%, hsla(150, 16%, 93%, 1) 50%, hsla(144, 4%, 77%, 1) 100%)",
   })
 );
 
@@ -35,104 +38,135 @@ const StyledNotFoundContainer = styled("div")(
     width: "100%",
     height: "100vh",
     display: "flex",
-    position: "fixed",
-    paddingTop: "10%",
-    paddingLeft: isSmallScreen ? "0px" : isTabletScreen ? "5%" : "20%",
+    justifyContent: "center",
+    alignItems: "center",
     backgroundImage:
       "linear-gradient(135deg, hsla(144, 4%, 77%, 1) 10%, hsla(150, 16%, 93%, 1) 50%, hsla(144, 4%, 77%, 1) 100%)",
   })
 );
 
-const Layout = () => {
+const Layout = ({ children }) => {
   const theme = createTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const isTabletScreen = useMediaQuery(theme.breakpoints.between("sm", "md"));
+  const location = useLocation();
+
+  const isHomePage = location.pathname === "/";
+  const isNotFoundPage = location.pathname === "*";
 
   return (
     <ThemeProvider theme={theme}>
-      <Router>
-        <div>
-          <Navbar />
+      <div>
+        <Navbar />
 
+        {/* Render Sidebar and Content Stack only for non-HomePage and non-NotFoundPage */}
+        {!isHomePage && !isNotFoundPage && (
           <Stack
             direction={{ xs: "column", sm: "row" }}
             spacing={isSmallScreen ? 0 : isTabletScreen ? 15 : 10}
-            sx={{ width: "100%" }}
+            sx={{
+              width: "100%",
+              backgroundImage:
+                "linear-gradient(135deg, hsla(144, 4%, 77%, 1) 10%, hsla(150, 16%, 93%, 1) 50%, hsla(144, 4%, 77%, 1) 100%)",
+            }}
           >
             <div style={{ width: "19%" }}>
               <Sidebar />
             </div>
-            <div style={{ width: "100%" }}>
-              <Routes>
-                <Route path="/calculator" element={<Calculator />} />
-                <Route
-                  path="/counter"
-                  element={
-                    <div style={{ width: isSmallScreen ? "92%" : "97%" }}>
-                      <Counter />
-                    </div>
-                  }
-                />
-                <Route
-                  path="/todo"
-                  element={
-                    <div style={{ width: "100%" }}>
-                      <ToDoList />
-                    </div>
-                  }
-                />
-
-                <Route
-                  path="/exchange"
-                  element={
-                    <div
-                      style={{
-                        width: "100%",
-                      }}
-                    >
-                      <ExchangeRate />
-                    </div>
-                  }
-                />
-
-                <Route
-                  path="/"
-                  element={
-                    <StyledHomeContainer
-                      isSmallScreen={isSmallScreen}
-                      isTabletScreen={isTabletScreen}
-                    >
-                      <HomePage />
-                    </StyledHomeContainer>
-                  }
-                />
-
-                <Route
-                  path="/movies"
-                  element={
-                    <div style={{ width: isSmallScreen ? "100%" : "100%" }}>
-                      <MovieList />
-                    </div>
-                  }
-                />
-                <Route
-                  path="*"
-                  element={
-                    <StyledNotFoundContainer
-                      isSmallScreen={isSmallScreen}
-                      isTabletScreen={isTabletScreen}
-                    >
-                      <NotFoundPage />
-                    </StyledNotFoundContainer>
-                  }
-                />
-              </Routes>
-            </div>
+            <div style={{ width: "100%" }}>{children}</div>
           </Stack>
-        </div>
-      </Router>
+        )}
+
+        {/* Render HomePage directly */}
+        {isHomePage && (
+          <StyledHomeContainer
+            isSmallScreen={isSmallScreen}
+            isTabletScreen={isTabletScreen}
+          >
+            <HomePage />
+          </StyledHomeContainer>
+        )}
+
+        {/* Render NotFoundPage directly */}
+        {isNotFoundPage && (
+          <StyledNotFoundContainer
+            isSmallScreen={isSmallScreen}
+            isTabletScreen={isTabletScreen}
+          >
+            <NotFoundPage />
+          </StyledNotFoundContainer>
+        )}
+      </div>
     </ThemeProvider>
   );
 };
 
-export default Layout;
+const App = () => {
+  return (
+    <Router>
+      <Routes>
+        {/* Main app routes */}
+        <Route
+          path="/"
+          element={
+            <Layout>
+              <HomePage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/calculator"
+          element={
+            <Layout>
+              <Calculator />
+            </Layout>
+          }
+        />
+        <Route
+          path="/todo"
+          element={
+            <Layout>
+              <ToDoList />
+            </Layout>
+          }
+        />
+        <Route
+          path="/exchange"
+          element={
+            <Layout>
+              <ExchangeRate />
+            </Layout>
+          }
+        />
+        <Route
+          path="/convert"
+          element={
+            <Layout>
+              <UnitConverter />
+            </Layout>
+          }
+        />
+        <Route
+          path="/movies"
+          element={
+            <Layout>
+              <MovieList />
+            </Layout>
+          }
+        />
+
+        {/* Catch-all for NotFoundPage */}
+        <Route
+          path="*"
+          element={
+            <StyledNotFoundContainer>
+              <NotFoundPage />
+            </StyledNotFoundContainer>
+          }
+        />
+      </Routes>
+    </Router>
+  );
+};
+
+export default App;

@@ -7,11 +7,11 @@ const HomePage = () => {
 
   // List of tools in the project with their routes
   const tools = [
-    { label: "To-Do List", path: "/todo" },
+    // { label: "To-Do List", path: "/todo" },
     { label: "Calendar", path: "/calendar" },
     { label: "Calculator", path: "/calculator" },
-    { label: "Movie List", path: "/Movies" },
-    { label: "Counter", path: "/counter" },
+    { label: "Currency Exchange", path: "/exchange" },
+    { label: "Converter", path: "/convert" },
   ];
 
   return (
@@ -38,9 +38,7 @@ const HomePage = () => {
       </Typography>
       <Typography variant="body1" gutterBottom sx={{ mb: 3, color: "#3a7171" }}>
         React Spectrum is your one-stop platform for various React-based tools
-        and components designed to make your tasks easier. <br />
-        Explore features such as the ..., Calendar, Calculator, and more, all
-        built using modern React and Material UI.
+        and components designed to make your tasks easier.
       </Typography>
       <Stack
         direction="row"

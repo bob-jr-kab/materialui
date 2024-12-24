@@ -6,9 +6,17 @@ import {
   Typography,
   Breadcrumbs,
   Link,
+  Chip,
 } from "@mui/material";
+import BMICalculator from "./calculators/BMICalculator";
 
 const Calculator = () => {
+  const [showBMICalculator, setShowBMICalculator] = useState(false);
+
+  const handleBMIClick = () => {
+    setShowBMICalculator(!showBMICalculator);
+  };
+
   const [input, setInput] = useState("");
 
   const handleButtonClick = (value) => {
@@ -62,13 +70,10 @@ const Calculator = () => {
       display="flex"
       flexDirection="column"
       alignItems="center"
-      // justifyContent="center"
       minHeight="100vh"
       sx={{
         paddingLeft: "3%",
         overscrollBehavior: "none",
-        backgroundImage:
-          "linear-gradient(135deg, hsla(144, 4%, 77%, 1) 10%, hsla(150, 16%, 93%, 1) 50%, hsla(144, 4%, 77%, 1) 100%)",
       }}
       p={2}
     >
@@ -82,120 +87,144 @@ const Calculator = () => {
         </Breadcrumbs>
       </Box>
 
-      <TextField
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        placeholder="Enter expression"
-        margin="normal"
-        inputProps={{ style: { textAlign: "right" } }}
-        sx={styledInput}
+      {/* BMI Calculator Toggle */}
+      <Chip
+        label="BMI Calculator"
+        clickable
+        color="primary"
+        onClick={handleBMIClick}
+        sx={{ mb: 2 }}
       />
-      <Box display="grid" gridTemplateColumns="repeat(4, 1fr)" gap={1} mb={2}>
-        {/* First Row with Clear (C) and Backspace */}
-        <Button
-          variant="contained"
-          sx={{
-            gridColumn: "span 2",
-            backgroundColor: "#e2de63",
-            color: "white",
-          }}
-          onClick={handleClear}
-        >
-          C
-        </Button>
-        <Button
-          variant="contained"
-          sx={{ backgroundColor: "#b96608", color: "white" }}
-          onClick={handleBackspace}
-        >
-          ⌫
-        </Button>
 
-        <Button
-          variant="contained"
-          sx={{ backgroundColor: "#9b9f9d", color: "white" }}
-          onClick={() => handleButtonClick("/")}
-        >
-          /
-        </Button>
-
-        {/* Second Row: 7, 8, 9, * */}
-        {["7", "8", "9", "*"].map((item) => (
-          <Button
-            key={item}
-            variant="contained"
-            sx={{
-              backgroundColor: /\d/.test(item) ? "#6a9c89" : "#9b9f9d",
-              color: "white",
-            }}
-            onClick={() => handleButtonClick(item)}
+      {showBMICalculator ? (
+        <BMICalculator />
+      ) : (
+        <>
+          <TextField
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Enter expression"
+            margin="normal"
+            inputProps={{ style: { textAlign: "right" } }}
+            sx={styledInput}
+          />
+          <Box
+            display="grid"
+            gridTemplateColumns="repeat(4, 1fr)"
+            gap={1}
+            mb={2}
           >
-            {item}
-          </Button>
-        ))}
+            {/* First Row with Clear (C) and Backspace */}
+            <Button
+              variant="contained"
+              sx={{
+                gridColumn: "span 2",
+                backgroundColor: "#e2de63",
+                color: "white",
+              }}
+              onClick={handleClear}
+            >
+              C
+            </Button>
+            <Button
+              variant="contained"
+              sx={{ backgroundColor: "#b96608", color: "white" }}
+              onClick={handleBackspace}
+            >
+              ⌫
+            </Button>
 
-        {/* Third Row: 4, 5, 6, - */}
-        {["4", "5", "6", "-"].map((item) => (
-          <Button
-            key={item}
-            variant="contained"
-            sx={{
-              backgroundColor: /\d/.test(item) ? "#6a9c89" : "#9b9f9d",
-              color: "white",
-            }}
-            onClick={() => handleButtonClick(item)}
-          >
-            {item}
-          </Button>
-        ))}
+            <Button
+              variant="contained"
+              sx={{ backgroundColor: "#9b9f9d", color: "white" }}
+              onClick={() => handleButtonClick("/")}
+            >
+              /
+            </Button>
 
-        {/* Fourth Row: 1, 2, 3 */}
-        {["1", "2", "3"].map((item) => (
-          <Button
-            key={item}
-            variant="contained"
-            sx={{
-              backgroundColor: /\d/.test(item) ? "#6a9c89" : "#6a9c89",
-              color: "white",
-            }}
-            onClick={() => handleButtonClick(item)}
-          >
-            {item}
-          </Button>
-        ))}
+            {/* Second Row: 7, 8, 9, * */}
+            {["7", "8", "9", "*"].map((item) => (
+              <Button
+                key={item}
+                variant="contained"
+                sx={{
+                  backgroundColor: /\d/.test(item) ? "#6a9c89" : "#9b9f9d",
+                  color: "white",
+                }}
+                onClick={() => handleButtonClick(item)}
+              >
+                {item}
+              </Button>
+            ))}
 
-        {/* The + button spanning 2 rows */}
-        <Button
-          variant="contained"
-          sx={{ gridRow: "span 2", backgroundColor: "#9b9f9d", color: "white" }}
-          onClick={() => handleButtonClick("+")}
-        >
-          +
-        </Button>
+            {/* Third Row: 4, 5, 6, - */}
+            {["4", "5", "6", "-"].map((item) => (
+              <Button
+                key={item}
+                variant="contained"
+                sx={{
+                  backgroundColor: /\d/.test(item) ? "#6a9c89" : "#9b9f9d",
+                  color: "white",
+                }}
+                onClick={() => handleButtonClick(item)}
+              >
+                {item}
+              </Button>
+            ))}
 
-        {/* Last Row: 0, ., = */}
-        <Button
-          variant="contained"
-          sx={{ backgroundColor: "#6a9c89", color: "white" }}
-          onClick={() => handleButtonClick("0")}
-        >
-          0
-        </Button>
-        <Button
-          variant="contained"
-          sx={{ backgroundColor: "#6a9c89", color: "white" }}
-          onClick={() => handleButtonClick(".")}
-        >
-          .
-        </Button>
-        <Button
-          variant="contained"
-          sx={{ backgroundColor: "#26662b", color: "white" }}
-          onClick={handleCalculate}
-        >
-          =
-        </Button>
-      </Box>
+            {/* Fourth Row: 1, 2, 3 */}
+            {["1", "2", "3"].map((item) => (
+              <Button
+                key={item}
+                variant="contained"
+                sx={{
+                  backgroundColor: /\d/.test(item) ? "#6a9c89" : "#6a9c89",
+                  color: "white",
+                }}
+                onClick={() => handleButtonClick(item)}
+              >
+                {item}
+              </Button>
+            ))}
+
+            {/* The + button spanning 2 rows */}
+            <Button
+              variant="contained"
+              sx={{
+                gridRow: "span 2",
+                backgroundColor: "#9b9f9d",
+                color: "white",
+              }}
+              onClick={() => handleButtonClick("+")}
+            >
+              +
+            </Button>
+
+            {/* Last Row: 0, ., = */}
+            <Button
+              variant="contained"
+              sx={{ backgroundColor: "#6a9c89", color: "white" }}
+              onClick={() => handleButtonClick("0")}
+            >
+              0
+            </Button>
+            <Button
+              variant="contained"
+              sx={{ backgroundColor: "#6a9c89", color: "white" }}
+              onClick={() => handleButtonClick(".")}
+            >
+              .
+            </Button>
+            <Button
+              variant="contained"
+              sx={{ backgroundColor: "#26662b", color: "white" }}
+              onClick={handleCalculate}
+            >
+              =
+            </Button>
+          </Box>
+        </>
+      )}
     </Box>
   );
 };

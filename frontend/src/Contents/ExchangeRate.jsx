@@ -85,8 +85,6 @@ const ExchangeRate = () => {
         padding: "2%",
         overflow: "hidden", // Prevent content from overflowing
         overscrollBehavior: "none", // Prevents overscrolling
-        backgroundImage:
-          "linear-gradient(135deg, hsla(144, 4%, 77%, 1) 10%, hsla(150, 16%, 93%, 1) 50%, hsla(144, 4%, 77%, 1) 100%)",
       }}
     >
       {/* Breadcrumbs Navigation */}

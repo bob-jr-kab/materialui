@@ -12,14 +12,14 @@ import {
   ListAlt,
   CurrencyExchange,
   Calculate,
+  FilterAlt,
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   return (
     <Box
-      bgcolor="#16423c"
-      color="#E9EFEC"
+      color="#050f0c"
       position="fixed"
       height="100vh"
       padding={2}
@@ -48,15 +48,6 @@ const Sidebar = () => {
         </ListItem>
 
         <ListItem disablePadding>
-          <ListItemButton component={Link} to="/counter">
-            <ListItemIcon>
-              <People />
-            </ListItemIcon>
-            <ListItemText primary="Counter" />
-          </ListItemButton>
-        </ListItem>
-
-        <ListItem disablePadding>
           <ListItemButton component={Link} to="/todo">
             <ListItemIcon>
               <ListAlt />
@@ -80,6 +71,15 @@ const Sidebar = () => {
               <Calculate />
             </ListItemIcon>
             <ListItemText primary="Calculator" />
+          </ListItemButton>
+        </ListItem>
+
+        <ListItem disablePadding>
+          <ListItemButton component={Link} to="/convert">
+            <ListItemIcon>
+              <FilterAlt />
+            </ListItemIcon>
+            <ListItemText primary="Converter" />
           </ListItemButton>
         </ListItem>
       </List>
