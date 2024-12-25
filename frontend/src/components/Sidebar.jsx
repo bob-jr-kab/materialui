@@ -22,7 +22,7 @@ const Sidebar = () => {
       color="#050f0c"
       position="fixed"
       height="100vh"
-      padding={2}
+      paddingLeft={2}
       sx={{
         display: { xs: "none", sm: "block", md: "block" },
         width: { sm: "25%", md: "20%" },

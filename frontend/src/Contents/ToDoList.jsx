@@ -104,16 +104,6 @@ const ToDoList = () => {
       }}
       height="100vh"
     >
-      {/* Breadcrumbs Navigation */}
-      <Box px={2} mb={2}>
-        <Breadcrumbs aria-label="breadcrumb">
-          <Link underline="hover" color="inherit" href="/">
-            Home
-          </Link>
-          <Typography color="textPrimary">Task Manager</Typography>
-        </Breadcrumbs>
-      </Box>
-
       <Card
         sx={{
           backgroundColor: "#e6ece9",

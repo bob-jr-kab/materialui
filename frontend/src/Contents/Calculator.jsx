@@ -77,16 +77,6 @@ const Calculator = () => {
       }}
       p={2}
     >
-      {/* Breadcrumbs Navigation */}
-      <Box px={2} mb={2} width="100%">
-        <Breadcrumbs aria-label="breadcrumb">
-          <Link underline="hover" color="inherit" href="/">
-            Home
-          </Link>
-          <Typography color="textPrimary">Calculator</Typography>
-        </Breadcrumbs>
-      </Box>
-
       {/* BMI Calculator Toggle */}
       <Chip
         label="BMI Calculator"

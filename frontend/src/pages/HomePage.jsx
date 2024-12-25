@@ -21,14 +21,14 @@ const HomePage = () => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: {
-          xs: "flex-start",
+          xs: "center",
           //   md: "flex-start",
           sm: "flex-start",
         },
         textAlign: "center",
         minHeight: "100vh",
         color: "white",
-        paddingTop: { xs: 3, md: 0 },
+        // paddingTop: { xs: 3, md: 0 },
         position: "fixed",
         // width: "100%",
       }}

@@ -97,16 +97,6 @@ const UnitConverter = () => {
         overscrollBehavior: "none", // Prevents overscrolling
       }}
     >
-      {/* Breadcrumbs Navigation */}
-      <Box px={2} mb={2} width="100%">
-        <Breadcrumbs aria-label="breadcrumb">
-          <Link underline="hover" color="inherit" href="/">
-            Home
-          </Link>
-          <Typography color="textPrimary">Unit Converter</Typography>
-        </Breadcrumbs>
-      </Box>
-
       <Card
         sx={{
           maxWidth: 800,

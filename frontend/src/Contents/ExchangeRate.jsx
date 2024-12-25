@@ -87,16 +87,6 @@ const ExchangeRate = () => {
         overscrollBehavior: "none", // Prevents overscrolling
       }}
     >
-      {/* Breadcrumbs Navigation */}
-      <Box px={2} mb={2} width="100%">
-        <Breadcrumbs aria-label="breadcrumb">
-          <Link underline="hover" color="inherit" href="/">
-            Home
-          </Link>
-          <Typography color="textPrimary">Exchange Rate</Typography>
-        </Breadcrumbs>
-      </Box>
-
       <Card
         sx={{
           maxWidth: 800,

@@ -142,16 +142,6 @@ const MovieList = () => {
         paddingTop: "20px",
       }}
     >
-      {/* Breadcrumbs Navigation */}
-      <Box px={{ xs: 2, sm: 5, md: 10 }} mb={2}>
-        <Breadcrumbs aria-label="breadcrumb">
-          <Link underline="hover" color="inherit" href="/">
-            Home
-          </Link>
-          <Typography color="textPrimary">Movies</Typography>
-        </Breadcrumbs>
-      </Box>
-
       {/* Header section */}
       <Box
         display="flex"
@@ -201,7 +191,6 @@ const MovieList = () => {
           </Button>
         </Box>
       </Box>
-
       {/* Movie list section */}
       {filteredMovies.length > 0 ? (
         <Box display="flex" justifyContent="center" padding={2}>
@@ -237,7 +226,6 @@ const MovieList = () => {
           Loading...
         </Typography>
       )}
-
       {/* More button */}
       {filteredMovies.length > 0 && (
         <Box display="flex" justifyContent="center" mt={3}>
@@ -251,7 +239,6 @@ const MovieList = () => {
           </Button>
         </Box>
       )}
-
       {/* Modal section */}
       <Modal open={open} onClose={handleClose}>
         <Box
