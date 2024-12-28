@@ -21,7 +21,7 @@ import {
 } from "@mui/material";
 import MovieList from "../Contents/MovieList.jsx";
 import ToDoList from "../Contents/ToDoList.jsx";
-import Calculator from "../Contents/Calculator.jsx";
+import Calculator from "../Contents/Calculators.jsx";
 import HomePage from "../pages/HomePage.jsx";
 import NotFoundPage from "../pages/NotFoundPage.jsx";
 import ExchangeRate from "../Contents/ExchangeRate.jsx";

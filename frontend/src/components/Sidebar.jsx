@@ -70,7 +70,7 @@ const Sidebar = () => {
             <ListItemIcon>
               <Calculate />
             </ListItemIcon>
-            <ListItemText primary="Calculator" />
+            <ListItemText primary="Calculators" />
           </ListItemButton>
         </ListItem>
 

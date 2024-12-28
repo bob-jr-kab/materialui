@@ -51,8 +51,7 @@ const BMICalculator = () => {
         backgroundColor: "#e6ece9",
         padding: "20px",
         borderRadius: "8px",
-        maxWidth: "250px",
-        margin: "auto",
+        maxWidth: "300px",
       }}
     >
       <CardContent>
@@ -85,12 +84,7 @@ const BMICalculator = () => {
           >
             Calculate
           </Button>
-          {bmi && (
-            <Box mt={2} textAlign="center">
-              <Typography variant="h6">Your BMI: {bmi}</Typography>
-              <Typography variant="body1">Category: {category}</Typography>
-            </Box>
-          )}
+
           <Button
             variant="outlined"
             color="secondary"
@@ -99,6 +93,12 @@ const BMICalculator = () => {
             Reset
           </Button>
         </Box>
+        {bmi && (
+          <Box mt={2} textAlign="center">
+            <Typography variant="h6">Your BMI: {bmi}</Typography>
+            <Typography variant="body1">Category: {category}</Typography>
+          </Box>
+        )}
       </CardContent>
     </Card>
   );
